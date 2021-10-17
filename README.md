@@ -15,6 +15,7 @@ Export as FBX
 
 Open SDK Project 
 
+Import your part to Unity and set it to Read/Write Enabled
 Import part into Unity scene
 
 Remove Camera from Unity Scene
@@ -23,58 +24,45 @@ Remove Light from Unity Scene
 
 For the imported part, rename the part to the desired name in the Inspector
 
-*Create a Child Empty and name it: model
+Click on Tools > Floating Origin Interactive > Experimental > Part Setup Tools
 
-*Create a Child Empty to model and name it: Resize
+The tool will add all the basic scripts to your part
 
-*Create a Child Empty to Resize and name it: mesh
+Once the scripts are setup, you can add nodes/ports/planes
 
-*Create a Child Empty to Resize and name it: collider
-
-Copy the Mesh Filter and Mesh Renderer to the mesh child from the upmost Parent
-
-Remove the meshes from the upmost Parent
-
-Copy the collider or create the collider to the collider child from the mesh
+	fore or aft for front and rear nodes for attaching your craft via connection points
 	
-	*Note that the collider must be Convex, if it is not, delete the collider and create the collider as Convex
-	*If copied from the upmost Parent, then remove the collider from there once done
+	surf for surface attachments
+	
+	Resource Ports are required for parts that need/provide resources
+	
+	In Balsa
+		Engines provide Drive power via DriveShaft node
+		
+		Engines need Electric or Fuel to work
+		
+		Need an Input Actuator to interact with the throttle
+		
+		Propellers need Drive power and connect to the DriveShaft node
+		
+		Propellers will be covered in a separate document
+		
+		Fuel/Electrical require a Resource Port to provide resources
 
-Create a Child Empty to model and name it node_fore (or node_srf)
-	
-	node_fore or node_aft for front and rear nodes
-	
-	node_surf for surface attachments
+Duplicate the Mesh that you imported, and add in a Mesh Collider, set it to Convex
+
+If it is not a Mesh collider, ignore the Convex requirement
+
+Rename the duplicated mesh "collider"
+
+Remove the Mesh Renderer and Mesh Filter from the collider
 
 Add in the reference sizers from Assets > balsa.sdk  > assets > shared > reference
 
 Resize part to match the desired reference part on the Resize child
 
 Remove the reference part
-
-On the upmost Parent, click Add Component and add the following scripts
-	
-	Scripts > BalsaAddons > 
-		Part
-		Part Model
-		Part Physics
-	
-	Scripts > BalsaAddons > 
-		Part Icon Fitter
-
-On the nodes (IE: node_fore) add the script
-	
-	Scripts > Attach Node
-		Fore: 
-			Id: fore
-			Type: Stack
-		Aft:
-			Id: aft 
-			Type: Stack
-		Surface
-			Id: srf
-			Type: Surface
-			
+		
 For the nodes, there are guide arrow, one Yellow, the other Gray
 
 Correct the orientation till:   
